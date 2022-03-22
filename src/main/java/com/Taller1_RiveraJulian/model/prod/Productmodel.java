@@ -11,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import org.springframework.data.repository.core.support.DefaultCrudMethods;
-
+	
 /**
  * The persistent class for the productmodel database table.
  *
