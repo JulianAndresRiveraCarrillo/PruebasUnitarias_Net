@@ -1,6 +1,7 @@
 package com.Taller1_RiveraJulian.service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import com.Taller1_RiveraJulian.model.prod.Productcosthistory;
 import com.Taller1_RiveraJulian.repository.ProductCostHistoryRepository;
@@ -14,22 +15,25 @@ public class ProductCostHistoryServiceImp implements ProductCostHistoryService{
 	}
 
 	@Override
-	public void save(Productcosthistory pc) {
+	public Productcosthistory save(Productcosthistory pc) {
+		Productcosthistory aux = null;
 		if(pc.getProduct() != null && (pc.getStandardcost().compareTo(BigDecimal.ZERO) > 0 && pc.getModifieddate().before(pc.getEnddate()))) {
-			pchr.save(pc);
+			aux = pchr.save(pc);
 		}
+		
+		return aux;
 	}
 
 	@Override
-	public void edit(Productcosthistory pc) {
-		if(pc.getProduct() != null && (pc.getStandardcost().compareTo(BigDecimal.ZERO) > 0 && pc.getModifieddate().before(pc.getEnddate()))) {
-			Productcosthistory temp = pchr.getById(pc.getId());
-			temp.setProduct(pc.getProduct());
-			temp.setEnddate(pc.getEnddate());
-			temp.setModifieddate(pc.getEnddate());
-			temp.setStandardcost(pc.getStandardcost());
-			pchr.save(temp);
+	public Productcosthistory edit(Productcosthistory pc) {
+		Productcosthistory aux = null;
+		if(pc.getId() != null) {
+			Optional<Productcosthistory> optional = pchr.findById(pc.getId());
+			if(optional.isPresent()) {
+				aux = save(pc);
+			}
 		}
+		return aux;
 	}	
 
 }

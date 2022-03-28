@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -154,8 +153,6 @@ public class ProductModelTest {
 			Timestamp time = new Timestamp(date.getTime());
 			aux.setModifieddate(time);
 			aux.setName("product 01");
-			
-			Productmodel temp = new Productmodel();
 			
 			when(pmr.save(aux)).thenReturn(aux);
 			

@@ -6,6 +6,6 @@ public interface ProductService {
 	
 	public Product edit(Product pm);
 
-	public Product save(Product p, Integer subcategory);
+	Product save(Product p);
 
 }

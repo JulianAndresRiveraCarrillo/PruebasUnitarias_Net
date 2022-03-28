@@ -4,7 +4,7 @@ import com.Taller1_RiveraJulian.model.prod.Productcosthistory;
 
 public interface ProductCostHistoryService {
 
-	public void save(Productcosthistory pc);
+	public Productcosthistory save(Productcosthistory pc);
 	
-	public void edit(Productcosthistory pc);
+	public Productcosthistory edit(Productcosthistory pc);
 }
