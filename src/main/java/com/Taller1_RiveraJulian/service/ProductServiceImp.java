@@ -1,18 +1,25 @@
 package com.Taller1_RiveraJulian.service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.Taller1_RiveraJulian.model.prod.Product;
+import com.Taller1_RiveraJulian.model.prod.Productsubcategory;
 import com.Taller1_RiveraJulian.repository.ProductCategoryRepository;
 import com.Taller1_RiveraJulian.repository.ProductRepository;
 import com.Taller1_RiveraJulian.repository.ProductSubCategoryRepository;
 
+@Service
 public class ProductServiceImp implements ProductService{
 
 	private ProductRepository pr;
 	private ProductSubCategoryRepository pscr;
 	private ProductCategoryRepository pcr;
 	
+	@Autowired
 	public ProductServiceImp(ProductRepository pr, ProductSubCategoryRepository pscr, ProductCategoryRepository pcr) {
 		this.pr = pr;
 		this.pscr = pscr;
@@ -20,17 +27,25 @@ public class ProductServiceImp implements ProductService{
 	}
 	
 	@Override
-	public void save(Product p) {
+	public Product save(Product p, Integer subcategory) {
+		Product aux = null;
 		if (p.getProductnumber() != null && p.getSellstartdate().before(p.getSellenddate())) {
 			int size = Integer.parseInt(p.getSize());
 			if((size > 0 && p.getWeight().compareTo(BigDecimal.ZERO) > 0) && (pscr.getById(p.getProductsubcategory().getProductsubcategoryid()) != null && pcr.getById(p.getProductsubcategory().getProductcategory().getProductcategoryid()) != null)) {
-				pr.save(p);
+				Optional<Productsubcategory> optional = pscr.findById(subcategory);
+				if(optional.isPresent()) {
+					p.setProductsubcategory(optional.get());
+					
+					aux = pr.save(p);
+				}
 			}
 		}
+		return aux;
 	}
 
 	@Override
-	public void edit(Product p) {
+	public Product edit(Product p) {
+		Product aux = null;
 		if (p.getProductnumber() != null && p.getSellstartdate().before(p.getSellenddate())) {
 			int size = Integer.parseInt(p.getSize());
 			if((size > 0 && p.getWeight().compareTo(BigDecimal.ZERO) > 0) && (pscr.getById(p.getProductsubcategory().getProductsubcategoryid()) != null && pcr.getById(p.getProductsubcategory().getProductcategory().getProductcategoryid()) != null)) {
@@ -45,6 +60,7 @@ public class ProductServiceImp implements ProductService{
 				pr.save(temp);
 			}
 		}
+		return aux;
 		
 	}
 

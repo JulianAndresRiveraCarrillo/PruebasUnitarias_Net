@@ -1,6 +1,7 @@
 package com.Taller1_RiveraJulian.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -135,6 +137,80 @@ public class ProductModelTest {
 		}
 	}
 
+	@Nested
+	@DisplayName("Edit for Product Model")
+	class EditProductModel{
+		
+		@Test
+		@DisplayName("Edit test whit correct values")
+		void editTest1() throws ParseException {
+			Productmodel aux = new Productmodel();
+			
+			aux.setCatalogdescription("new Catalog");
+			aux.setInstructions("be Careful");
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+			Date date  = format.parse("10-02-2022");
+			Timestamp time = new Timestamp(date.getTime());
+			aux.setModifieddate(time);
+			aux.setName("product 01");
+			
+			Productmodel temp = new Productmodel();
+			
+			when(pmr.save(aux)).thenReturn(aux);
+			
+			Productmodel p = pms.save(aux);
+			
+			assertNotNull(p);
+			assertTrue(p.getCatalogdescription().length() > 5);
+			assertTrue(p.getName().length() > 5);
+			assertEquals(p.getProductmodelid(), aux.getProductmodelid());
+		}
+		
+		@Test
+		@DisplayName("Edit test with Null Catalog Description")
+		void editTest2() throws ParseException {
+			Productmodel aux = new Productmodel();
+			
+			aux.setInstructions("be Careful");
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+			Date date  = format.parse("10-02-2022");
+			Timestamp time = new Timestamp(date.getTime());
+			aux.setModifieddate(time);
+			aux.setName("product 01");
+			
+			try {
+				aux.setCatalogdescription(null);
+			} catch (RuntimeException e) {
+				Throwable ex = assertThrows(RuntimeException.class, () -> pm.getCatalogdescription());
+				assertEquals("Longitud minima" + " CatalogDescription: " + "5 caracteres", ex.getMessage());
+				assertNull(pm.getCatalogdescription());
+			}
+		}
+		
+		@Test
+		@DisplayName("Edit Test with Null Name")
+		void editTest3() throws ParseException {
+			Productmodel aux = new Productmodel();
+			
+			aux.setInstructions("be Careful");
+			aux.setCatalogdescription("Catalog 02");
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+			Date date  = format.parse("10-02-2022");
+			Timestamp time = new Timestamp(date.getTime());
+			aux.setModifieddate(time);
+			
+			try {
+				aux.setName(null);
+			} catch (RuntimeException e) {
+				Throwable ex = assertThrows(RuntimeException.class, () -> pm.getName());
+				assertEquals("Longitud minima" + " Name: " + "5 caracteres", ex.getMessage());
+				assertNull(pm.getName());
+			}
+		}
+	}
 	
 	@AfterAll
 	static void end() {

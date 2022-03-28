@@ -17,6 +17,7 @@ public class ProductModelServiceImp implements ProductModelService{
 	public ProductModelServiceImp(ProductModelRepository pmr) {
 		this.pmr = pmr;
 	}
+	
 	@Override
 	public Productmodel save(Productmodel pm) {
 		Productmodel aux = null;
@@ -30,17 +31,14 @@ public class ProductModelServiceImp implements ProductModelService{
 	@Override
 	public Productmodel edit(Productmodel pm) {
 		Productmodel aux = null;
-		if (pm.getName().length() >= 5 && pm.getCatalogdescription().length() >= 5) {
-			Optional<Productmodel> optional = pmr.findById(pm.getProductmodelid());
+		
+		if(pm.getProductmodelid() != null) {
+			Optional<Productmodel>optional = pmr.findById(pm.getProductmodelid());
 			if(optional.isPresent()) {
-				/*temp.setName(pm.getName());
-				temp.setCatalogdescription(pm.getCatalogdescription());
-				temp.setInstructions(pm.getInstructions());
-				temp.setModifieddate(pm.getModifieddate());
-				temp.setRowguid(pm.getRowguid());*/
-				aux = pmr.save(pm);
-			}	
+				aux = save(pm);
+			}
 		}
+		
 		return aux;
 	}
 
