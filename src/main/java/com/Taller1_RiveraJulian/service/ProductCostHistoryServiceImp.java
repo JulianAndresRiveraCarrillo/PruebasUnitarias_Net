@@ -1,15 +1,20 @@
-package com.Taller1_RiveraJulian.service;
+	package com.Taller1_RiveraJulian.service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.Taller1_RiveraJulian.model.prod.Productcosthistory;
 import com.Taller1_RiveraJulian.repository.ProductCostHistoryRepository;
 
+@Service
 public class ProductCostHistoryServiceImp implements ProductCostHistoryService{
 	
 	private ProductCostHistoryRepository pchr;
 	
+	@Autowired
 	public ProductCostHistoryServiceImp(ProductCostHistoryRepository pchr) {
 		this.pchr = pchr;
 	}

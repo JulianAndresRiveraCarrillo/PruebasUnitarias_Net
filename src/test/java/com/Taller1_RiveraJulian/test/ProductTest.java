@@ -1,4 +1,4 @@
-package com.Taller1_RiveraJulian.test;
+ package com.Taller1_RiveraJulian.test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,12 +21,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolverSupport;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.Taller1_RiveraJulian.application.Taller1RiveraJulianApplication;
 import com.Taller1_RiveraJulian.model.prod.Product;
-import com.Taller1_RiveraJulian.model.prod.Productmodel;
 import com.Taller1_RiveraJulian.model.prod.Productsubcategory;
 import com.Taller1_RiveraJulian.repository.ProductRepository;
 import com.Taller1_RiveraJulian.repository.ProductSubCategoryRepository;

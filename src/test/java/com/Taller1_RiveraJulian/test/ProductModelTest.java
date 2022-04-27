@@ -76,7 +76,6 @@ public class ProductModelTest {
 			Productmodel aux = pms.save(pm);
 			
 			assertTrue(aux.getName().length() > 5);
-			assertTrue(aux.getCatalogdescription().length() > 5);
 		}
 		
 		@Test
@@ -134,6 +133,27 @@ public class ProductModelTest {
 			
 			verify(pmr, times(0)).save(pm);
 		}
+		
+		@Test
+		@DisplayName("Save test with correct values")
+		void saveTest6() {
+			when(pmr.save(pm)).thenReturn(pm);
+			
+			Productmodel aux = pms.save(pm);
+			
+			assertTrue(aux.getCatalogdescription().length() > 5);
+		}
+	}
+	
+	@Test
+	@DisplayName("Save test with correct values")
+	void saveTest1() {
+		when(pmr.save(pm)).thenReturn(pm);
+		
+		Productmodel aux = pms.save(pm);
+		
+		assertTrue(aux.getName().length() > 5);
+		assertTrue(aux.getCatalogdescription().length() > 5);
 	}
 
 	@Nested
@@ -212,7 +232,7 @@ public class ProductModelTest {
 	@AfterAll
 	static void end() {
 		System.out.println("============================================");
-		System.out.println("         ProductModelTest Finished");
+		System.out.println("        ProductModelTest Finished");
 		System.out.println("============================================");
 	}
 }
