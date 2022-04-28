@@ -19,9 +19,15 @@ public class ProductModelServiceImp implements ProductModelService{
 	}
 	
 	@Override
-	public Productmodel save(Productmodel pm) {
+	public Productmodel save(Productmodel pm) throws RuntimeException {
 		Productmodel aux = null;
-		if (pm.getName().length() >= 5 && pm.getCatalogdescription().length() >= 5) {
+		if (pm.getName().length() < 5) {
+			throw new RuntimeException("La longitud del nombre debe ser mayor a 5");
+		}
+		else if(pm.getCatalogdescription().length() < 5) {
+			throw new RuntimeException("La longitud de la descripcion del catalogo debe ser mayor a 5");
+		}
+		else {
 			aux = pmr.save(pm);
 		}
 		

@@ -96,7 +96,7 @@ public class ShoppingCarItemTest {
 			
 			when(scir.save(aux)).thenReturn(aux);
 			
-			Shoppingcartitem temp = scis.save(aux);
+			Shoppingcartitem temp = scis.edit(aux);
 			
 			assertNotNull(temp);
 		}

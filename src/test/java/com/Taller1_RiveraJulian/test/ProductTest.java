@@ -154,7 +154,7 @@ public class ProductTest {
 			when(sr.findById(1)).thenReturn(Optional.of(s));
 			when(pr.save(p)).thenReturn(p);
 			
-			Product temp = ps.save(aux);
+			Product temp = ps.edit(aux);
 			
 			assertNotNull(temp);
 		}

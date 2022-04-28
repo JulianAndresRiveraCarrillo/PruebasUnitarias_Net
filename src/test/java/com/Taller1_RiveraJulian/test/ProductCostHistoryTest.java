@@ -1,4 +1,4 @@
-package com.Taller1_RiveraJulian.test;
+ package com.Taller1_RiveraJulian.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -160,7 +160,7 @@ public class ProductCostHistoryTest {
 			
 			when(pchr.save(aux)).thenReturn(aux);
 			
-			Productcosthistory temp = pchs.save(aux);
+			Productcosthistory temp = pchs.edit(aux, aux.getId());
 			
 			assertNotNull(temp);
 		}

@@ -53,14 +53,14 @@ public class ProductModelTest {
 	@BeforeEach
 	void setup() throws ParseException {
 		pm = new Productmodel();
-		pm.setCatalogdescription("New Catalog Description");
+		pm.setCatalogdescription("New Catalog Description for the product");
 		pm.setInstructions("New set of Instructions");
 		
 		SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
 		Date date = format.parse("27-03-2022");
 		Timestamp time = new Timestamp(date.getTime());
 		pm.setModifieddate(time);
-		pm.setName("Product Model 01");
+		pm.setName("New Product Model 01");
 		
 	}
 	
@@ -176,7 +176,7 @@ public class ProductModelTest {
 			
 			when(pmr.save(aux)).thenReturn(aux);
 			
-			Productmodel p = pms.save(aux);
+			Productmodel p = pms.edit(aux);
 			
 			assertNotNull(p);
 			assertTrue(p.getCatalogdescription().length() > 5);

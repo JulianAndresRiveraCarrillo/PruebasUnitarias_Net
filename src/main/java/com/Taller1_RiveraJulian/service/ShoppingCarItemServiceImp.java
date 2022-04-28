@@ -1,6 +1,5 @@
 package com.Taller1_RiveraJulian.service;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,15 @@ public class ShoppingCarItemServiceImp implements ShoppingCarItemService{
 	}
 
 	@Override
-	public Shoppingcartitem save(Shoppingcartitem item) {
+	public Shoppingcartitem save(Shoppingcartitem item) throws RuntimeException {
 		Shoppingcartitem temp = null;
-		if(((scir.getById(item.getProductid()) != null) && ((item.getQuantity() > 0)) && (item.getDatecreated().before(new Date())))) {
+		if(scir.getById(item.getProductid()) == null)  {
+			throw new RuntimeException("No existe el producto");
+		}else if(item.getQuantity() < 0) {
+			throw new RuntimeException("Debe existir al menos un producto");
+		}else if(item.getDatecreated().after(item.getModifieddate())) {
+			throw new RuntimeException("La fecha de creacion debe ser menor que la fecha de modificacion");
+		}else {
 			temp = scir.save(item);
 		}
 		return temp;
